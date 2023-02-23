@@ -16,7 +16,7 @@ OBJ = $(OBJDIR)/assess.o $(OBJDIR)/frequency.o $(OBJDIR)/blockFrequency.o \
       $(OBJDIR)/utilities.o $(OBJDIR)/generators.o $(OBJDIR)/genutils.o
 
 assess: $(OBJ)
-	$(CC) -o $@ $(OBJ) -lm
+	$(CC) -o $@ $(OBJ)
 
 $(OBJDIR)/assess.o: $(SRCDIR)/assess.c defs.h decls.h utilities.h
 	$(CC) -o $@ -c $(SRCDIR)/assess.c
