@@ -1,6 +1,7 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
               U T I L I T Y  F U N C T I O N  P R O T O T Y P E S 
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+#include "../../NIST_SP_800-22_GUI/log.h"
 
 int		displayGeneratorOptions();
 int		generatorOptions(char** streamFile);

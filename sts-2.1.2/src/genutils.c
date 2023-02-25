@@ -584,45 +584,45 @@ void prettyprintBstr(char *S, BYTE *A, int L)
 	int		i, extra, ctrb, ctrl;
 
 	if ( L == 0 )
-		printf("%s <empty>", S);
+		mylog_printf("%s <empty>", S);
 	else
-		printf("%s\n\t", S);
+		mylog_printf("%s\n\t", S);
 	extra = L % 24;
 	if ( extra ) {
 		ctrb = 0;
 		for ( i=0; i<24-extra; i++ ) {
-			printf("  ");
+			mylog_printf("  ");
 			if ( ++ctrb == 4) {
-				printf(" ");
+				mylog_printf(" ");
 				ctrb = 0;
 			}
 		}
 
 		for ( i=0; i<extra; i++ ) {
-			printf("%02X", A[i]);
+			mylog_printf("%02X", A[i]);
 			if ( ++ctrb == 4) {
-				printf(" ");
+				mylog_printf(" ");
 				ctrb = 0;
 			}
 		}
-		printf("\n\t");
+		mylog_printf("\n\t");
 	}
 
 	ctrb = ctrl = 0;
 	for ( i=extra; i<L; i++ ) {
-		printf("%02X", A[i]);
+		mylog_printf("%02X", A[i]);
 		if ( ++ctrb == 4) {
 			ctrl++;
 			if ( ctrl == 6 ) {
-				printf("\n\t");
+				mylog_printf("\n\t");
 				ctrl = 0;
 			}
 			else
-				printf(" ");
+				mylog_printf(" ");
 			ctrb = 0;
 		}
 	}
-	printf("\n\n");
+	mylog_printf("\n\n");
 }
 
 

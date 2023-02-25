@@ -25,7 +25,7 @@ RandomExcursions(int n)
 	
 	if ( ((S_k = (int *)calloc(n, sizeof(int))) == NULL) ||
 		 ((cycle = (int *)calloc(MAX(1000, n/100), sizeof(int))) == NULL) ) {
-		printf("Random Excursions Test:  Insufficent Work Space Allocated.\n");
+		mylog_printf("Random Excursions Test:  Insufficent Work Space Allocated.\n");
 		if ( S_k != NULL )
 			free(S_k);
 		if ( cycle != NULL )
@@ -40,7 +40,7 @@ RandomExcursions(int n)
 		if ( S_k[i] == 0 ) {
 			J++;
 			if ( J > MAX(1000, n/100) ) {
-				printf("ERROR IN FUNCTION randomExcursions:  EXCEEDING THE MAX NUMBER OF CYCLES EXPECTED\n.");
+				mylog_printf("ERROR IN FUNCTION randomExcursions:  EXCEEDING THE MAX NUMBER OF CYCLES EXPECTED\n.");
 				free(S_k);
 				free(cycle);
 				return;

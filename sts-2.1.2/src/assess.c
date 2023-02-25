@@ -64,12 +64,10 @@ main(int argc, char *argv[])
 	
 
 	if ( argc != 2 ) {
-		printf("Usage: %s <stream length>\n", argv[0]);
-		printf("   <stream length> is the length of the individual bit stream(s) to be processed\n");
 		return 0;
 	}
 
-	tp.n = atoi(argv[1]);
+	tp.n = 1000000;
 	tp.blockFrequencyBlockLength = 128;
 	tp.nonOverlappingTemplateBlockLength = 9;
 	tp.overlappingTemplateBlockLength = 9;
@@ -77,10 +75,10 @@ main(int argc, char *argv[])
 	tp.serialBlockLength = 16;
 	tp.linearComplexitySequenceLength = 500;
 	tp.numOfBitStreams = 1;
-	option = generatorOptions(&streamFile);
+	option = generatorOptions(&streamFile, argv[0]);
 	chooseTests();
 	fixParameters();
-	openOutputStreams(option);
+	openOutputStreams(option, atoi(argv[1]));
 	invokeTestSuite(option, streamFile);
 	fclose(freqfp);
 	for( i=1; i<=NUMOFTESTS; i++ ) {
@@ -128,8 +126,8 @@ partitionResultFile(int numOfFiles, int numOfSequences, int option, int testName
 	sprintf(resultsDir, "experiments/%s/%s/results.txt", generatorDir[option], testNames[testNameID]);
 	
 	if ( (fp[numOfFiles] = fopen(resultsDir, "r")) == NULL ) {
-		printf("%s", resultsDir);
-		printf(" -- file not found. Exiting program.\n");
+		mylog_printf("%s", resultsDir);
+		mylog_printf(" -- file not found. Exiting program.\n");
 		exit(-1);
 	}
 	
@@ -147,8 +145,8 @@ partitionResultFile(int numOfFiles, int numOfSequences, int option, int testName
 		m++;
 	for ( i=0; i<numOfFiles; i++ ) {
 		if ( (fp[i] = fopen(s[i], "w")) == NULL ) {
-			printf("%s", s[i]);
-			printf(" -- file not found. Exiting program.\n");
+			mylog_printf("%s", s[i]);
+			mylog_printf(" -- file not found. Exiting program.\n");
 			exit(-1);
 		}
 		fclose(fp[i]);
@@ -163,8 +161,8 @@ partitionResultFile(int numOfFiles, int numOfSequences, int option, int testName
 			
 			for ( i=start; i<=end; i++ ) {		/* OPEN FILE */
 				if ( (fp[i] = fopen(s[i], "a")) == NULL ) {
-					printf("%s", s[i]);
-					printf(" -- file not found. Exiting program.\n");
+					mylog_printf("%s", s[i]);
+					mylog_printf(" -- file not found. Exiting program.\n");
 					exit(-1);
 				}
 			}
@@ -289,13 +287,13 @@ computeMetrics(char *s, int test)
 	FILE	*fp;
 	
 	if ( (fp = fopen(s, "r")) == NULL ) {
-		printf("%s",s);
-		printf(" -- file not found. Exiting program.\n");
+		mylog_printf("%s",s);
+		mylog_printf(" -- file not found. Exiting program.\n");
 		exit(-1);
 	}
 	
 	if ( (A = (double *)calloc(tp.numOfBitStreams, sizeof(double))) == NULL ) {
-		printf("Final Analysis Report aborted due to insufficient workspace\n");
+		mylog_printf("Final Analysis Report aborted due to insufficient workspace\n");
 		return 0;
 	}
 	
@@ -306,7 +304,7 @@ computeMetrics(char *s, int test)
 	
 	if ( (test == TEST_RND_EXCURSION) || (test == TEST_RND_EXCURSION_VAR) ) { /* Special Case: Random Excursion Tests */
 		if ( (T = (double *)calloc(tp.numOfBitStreams, sizeof(double))) == NULL ) {
-			printf("Final Analysis Report aborted due to insufficient workspace\n");
+			mylog_printf("Final Analysis Report aborted due to insufficient workspace\n");
 			return 0;
 		}
 		for ( j=0; j<sampleSize; j++ ) {
@@ -316,7 +314,7 @@ computeMetrics(char *s, int test)
 		}
 		
 		if ( (A = (double *)calloc(count, sizeof(double))) == NULL ) {
-			printf("Final Analysis Report aborted due to insufficient workspace\n");
+			mylog_printf("Final Analysis Report aborted due to insufficient workspace\n");
 			return 0;
 		}
 		
@@ -332,7 +330,7 @@ computeMetrics(char *s, int test)
 	}
 	else {
 		if ( (A = (double *)calloc(sampleSize, sizeof(double))) == NULL ) {
-			printf("Final Analysis Report aborted due to insufficient workspace\n");
+			mylog_printf("Final Analysis Report aborted due to insufficient workspace\n");
 			return 0;
 		}
 		for ( j=0; j<sampleSize; j++ ) {

@@ -52,7 +52,7 @@ lcg()
 	SEED = 23482349.0;
 	if ( ((epsilon = (BitSequence *) calloc(tp.n, sizeof(BitSequence))) == NULL) ||
 	     ((DUNIF = (double*)calloc(tp.n, sizeof(double))) == NULL) ) {
-		printf("Insufficient memory available.\n");
+		mylog_printf("Insufficient memory available.\n");
 		exit(1);
 	}
 	counter = 1;
@@ -89,7 +89,7 @@ quadRes1()
 	BYTE	p[64], g[64], x[128];
 	
 	if ( ((epsilon = (BitSequence *)calloc(tp.n, sizeof(BitSequence))) == NULL) ) {
-		printf("Insufficient memory available.\n");
+		mylog_printf("Insufficient memory available.\n");
 		exit(1);
 	}
 	ahtopb("987b6a6bf2c56a97291c445409920032499f9ee7ad128301b5d0254aa1a9633fdbd378d40149f1e23a13849f3d45992f5c4c6b7104099bc301f6005f9d8115e1", p, 64);
@@ -125,7 +125,7 @@ quadRes2()
 	int		k, num_0s, num_1s, bitsRead, done;
 	
 	if ( ((epsilon = (BitSequence *)calloc(tp.n, sizeof(BitSequence))) == NULL) ) {
-		printf("Insufficient memory available.\n");
+		mylog_printf("Insufficient memory available.\n");
 		exit(1);
 	}
 	One[0] = 0x01;
@@ -164,7 +164,7 @@ cubicRes()
 	int		k, num_0s, num_1s, bitsRead, done;
 	
 	if ( ((epsilon = (BitSequence *)calloc(tp.n, sizeof(BitSequence))) == NULL) ) {
-		printf("Insufficient memory available.\n");
+		mylog_printf("Insufficient memory available.\n");
 		exit(1);
 	}
 	
@@ -198,7 +198,7 @@ exclusiveOR()
 	BYTE	bit_sequence[127];
 	
 	if ( ((epsilon = (BitSequence *)calloc(tp.n,sizeof(BitSequence))) == NULL) ) {
-		printf("Insufficient memory available.\n");
+		mylog_printf("Insufficient memory available.\n");
 		exit(1);
 	}
 
@@ -250,7 +250,7 @@ modExp()
 	BYTE	p[64], g[64], x[192], y[20];
 
 	if ( (epsilon = (BitSequence *)calloc(tp.n, sizeof(BitSequence))) == NULL ) {
-		printf("Insufficient memory available.\n");
+		mylog_printf("Insufficient memory available.\n");
 		exit(1);
 	}
 	ahtopb("7AB36982CE1ADF832019CDFEB2393CABDF0214EC", y, 20);
@@ -284,7 +284,7 @@ bbs()
 	int		num_0s, num_1s;
 
 	if ( (epsilon = (BitSequence*)calloc(tp.n, sizeof(BitSequence))) == NULL ) {
-		printf("Insufficient memory available.\n");
+		mylog_printf("Insufficient memory available.\n");
 		exit(1);
 	}
 	ahtopb("E65097BAEC92E70478CAF4ED0ED94E1C94B154466BFB9EC9BE37B2B0FF8526C222B76E0E915017535AE8B9207250257D0A0C87C0DACEF78E17D1EF9DC44FD91F", p, 64);
@@ -313,7 +313,7 @@ bbs()
 			}
 			bitsRead++;
 			if ( (i % 50000) == 0 )
-				printf("\t\tBITSREAD = %d 0s = %d 1s = %d\n", bitsRead, num_0s, num_1s);
+				mylog_printf("\t\tBITSREAD = %d 0s = %d 1s = %d\n", bitsRead, num_0s, num_1s);
 		}
 
 		fprintf(freqfp, "\t\tBITSREAD = %d 0s = %d 1s = %d\n", bitsRead, num_0s, num_1s); fflush(freqfp);
@@ -333,7 +333,7 @@ micali_schnorr()
 	BYTE	p[64], q[64], n[128], e[1], X[128], Y[384], Tail[105];
 
 	if ( (epsilon = (BitSequence *)calloc(tp.n, sizeof(BitSequence))) == NULL ) {
-		printf("Insufficient memory available.\n");
+		mylog_printf("Insufficient memory available.\n");
 		exit(1);
 	}
 	ahtopb("E65097BAEC92E70478CAF4ED0ED94E1C94B154466BFB9EC9BE37B2B0FF8526C222B76E0E915017535AE8B9207250257D0A0C87C0DACEF78E17D1EF9DC44FD91F", p, 64);
@@ -379,7 +379,7 @@ SHA1()
 	ULONG	tx[5] = { 0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0 };
 	
 	if ( ((epsilon = (BitSequence *) calloc(tp.n,sizeof(BitSequence))) == NULL) ) {
-		printf("Insufficient memory available.\n");
+		mylog_printf("Insufficient memory available.\n");
 		exit(1);
 	}
 

@@ -18,7 +18,7 @@ LinearComplexity(int M, int n)
 		 ((C  = (BitSequence *) calloc(M, sizeof(BitSequence))) == NULL) ||
 		 ((P  = (BitSequence *) calloc(M, sizeof(BitSequence))) == NULL) ||
 		 ((T  = (BitSequence *) calloc(M, sizeof(BitSequence))) == NULL) ) {
-		printf("Insufficient Memory for Work Space:: Linear Complexity Test\n");
+		mylog_printf("Insufficient Memory for Work Space:: Linear Complexity Test\n");
 		if ( B_ != NULL )
 			free(B_);
 		if ( C != NULL )

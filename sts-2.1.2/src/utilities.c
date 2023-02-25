@@ -16,23 +16,24 @@ displayGeneratorOptions()
 {
 	int		option = 0;
 
-	printf("           G E N E R A T O R    S E L E C T I O N \n");
-	printf("           ______________________________________\n\n");
-	printf("    [0] Input File                 [1] Linear Congruential\n");
-	printf("    [2] Quadratic Congruential I   [3] Quadratic Congruential II\n");
-	printf("    [4] Cubic Congruential         [5] XOR\n");
-	printf("    [6] Modular Exponentiation     [7] Blum-Blum-Shub\n");
-	printf("    [8] Micali-Schnorr             [9] G Using SHA-1\n\n");
-	printf("   Enter Choice: ");
-	scanf("%d", &option);
-	printf("\n\n");
+	mylog_printf("           G E N E R A T O R    S E L E C T I O N \n");
+	mylog_printf("           ______________________________________\n\n");
+	mylog_printf("    [0] Input File                 [1] Linear Congruential\n");
+	mylog_printf("    [2] Quadratic Congruential I   [3] Quadratic Congruential II\n");
+	mylog_printf("    [4] Cubic Congruential         [5] XOR\n");
+	mylog_printf("    [6] Modular Exponentiation     [7] Blum-Blum-Shub\n");
+	mylog_printf("    [8] Micali-Schnorr             [9] G Using SHA-1\n\n");
+	mylog_printf("   Enter Choice: ");
+	option = 0;
+	mylog_printf("%d", option);
+	mylog_printf("\n\n");
 
 	return option;
 }
 
 
 int
-generatorOptions(char** streamFile)
+generatorOptions(char** streamFile, char* filename)
 {
 	char	file[200];
 	int		option = NUMOFGENERATORS+1;
@@ -42,13 +43,13 @@ generatorOptions(char** streamFile)
 		option = displayGeneratorOptions();
 		switch( option ) {
 			case 0:
-				printf("\t\tUser Prescribed Input File: ");
-				scanf("%s", file);
+				mylog_printf("\t\tUser Prescribed Input File: ");
+				mylog_printf("%s", filename);
 				*streamFile = (char*)calloc(200, sizeof(char));
-				sprintf(*streamFile, "%s", file);
-				printf("\n");
+				sprintf(*streamFile, "%s", filename);
+				mylog_printf("\n");
 				if ( (fp = fopen(*streamFile, "r")) == NULL ) {
-					printf("File Error:  file %s could not be opened.\n",  *streamFile);
+					mylog_printf("File Error:  file %s could not be opened.\n",  *streamFile);
 					exit(-1);
 				}
 				else
@@ -88,7 +89,7 @@ generatorOptions(char** streamFile)
 				break;
 			*/
 			default:
-				printf("Error:  Out of range - Try again!\n");
+				mylog_printf("Error:  Out of range - Try again!\n");
 				break;
 		}
 	}
@@ -101,35 +102,36 @@ chooseTests()
 {
 	int		i;
 	
-	printf("                S T A T I S T I C A L   T E S T S\n");
-	printf("                _________________________________\n\n");
-	printf("    [01] Frequency                       [02] Block Frequency\n");
-	printf("    [03] Cumulative Sums                 [04] Runs\n");
-	printf("    [05] Longest Run of Ones             [06] Rank\n");
-	printf("    [07] Discrete Fourier Transform      [08] Nonperiodic Template Matchings\n");
-	printf("    [09] Overlapping Template Matchings  [10] Universal Statistical\n");
-	printf("    [11] Approximate Entropy             [12] Random Excursions\n");
-	printf("    [13] Random Excursions Variant       [14] Serial\n");
-	printf("    [15] Linear Complexity\n\n");
-	printf("         INSTRUCTIONS\n");
-	printf("            Enter 0 if you DO NOT want to apply all of the\n");
-	printf("            statistical tests to each sequence and 1 if you DO.\n\n");
-	printf("   Enter Choice: ");
-	scanf("%d", &testVector[0]);
-	printf("\n");
+	mylog_printf("                S T A T I S T I C A L   T E S T S\n");
+	mylog_printf("                _________________________________\n\n");
+	mylog_printf("    [01] Frequency                       [02] Block Frequency\n");
+	mylog_printf("    [03] Cumulative Sums                 [04] Runs\n");
+	mylog_printf("    [05] Longest Run of Ones             [06] Rank\n");
+	mylog_printf("    [07] Discrete Fourier Transform      [08] Nonperiodic Template Matchings\n");
+	mylog_printf("    [09] Overlapping Template Matchings  [10] Universal Statistical\n");
+	mylog_printf("    [11] Approximate Entropy             [12] Random Excursions\n");
+	mylog_printf("    [13] Random Excursions Variant       [14] Serial\n");
+	mylog_printf("    [15] Linear Complexity\n\n");
+	mylog_printf("         INSTRUCTIONS\n");
+	mylog_printf("            Enter 0 if you DO NOT want to apply all of the\n");
+	mylog_printf("            statistical tests to each sequence and 1 if you DO.\n\n");
+	mylog_printf("   Enter Choice: ");
+	testVector[0] = 1;
+	mylog_printf("%d", testVector[0]);
+	mylog_printf("\n");
 	if ( testVector[0] == 1 )
 		for( i=1; i<=NUMOFTESTS; i++ )
 			testVector[i] = 1;
 	else {
-		printf("         INSTRUCTIONS\n");
-		printf("            Enter a 0 or 1 to indicate whether or not the numbered statistical\n");
-		printf("            test should be applied to each sequence.\n\n");
-		printf("      123456789111111\n");
-		printf("               012345\n");
-		printf("      ");
+		mylog_printf("         INSTRUCTIONS\n");
+		mylog_printf("            Enter a 0 or 1 to indicate whether or not the numbered statistical\n");
+		mylog_printf("            test should be applied to each sequence.\n\n");
+		mylog_printf("      123456789111111\n");
+		mylog_printf("               012345\n");
+		mylog_printf("      ");
 		for ( i=1; i<=NUMOFTESTS; i++ ) 
 			scanf("%1d", &testVector[i]);
-		printf("\n\n");
+		mylog_printf("\n\n");
 	}
 }
 
@@ -147,77 +149,78 @@ fixParameters()
 		
 	do {
 		counter = 1;
-		printf("        P a r a m e t e r   A d j u s t m e n t s\n");
-		printf("        -----------------------------------------\n");
+		mylog_printf("        P a r a m e t e r   A d j u s t m e n t s\n");
+		mylog_printf("        -----------------------------------------\n");
 		if ( testVector[TEST_BLOCK_FREQUENCY] == 1 )
-			printf("    [%d] Block Frequency Test - block length(M):         %d\n", counter++, tp.blockFrequencyBlockLength);
+			mylog_printf("    [%d] Block Frequency Test - block length(M):         %d\n", counter++, tp.blockFrequencyBlockLength);
 		if ( testVector[TEST_NONPERIODIC] == 1 )
-			printf("    [%d] NonOverlapping Template Test - block length(m): %d\n", counter++, tp.nonOverlappingTemplateBlockLength);
+			mylog_printf("    [%d] NonOverlapping Template Test - block length(m): %d\n", counter++, tp.nonOverlappingTemplateBlockLength);
 		if ( testVector[TEST_OVERLAPPING] == 1 )
-			printf("    [%d] Overlapping Template Test - block length(m):    %d\n", counter++, tp.overlappingTemplateBlockLength);
+			mylog_printf("    [%d] Overlapping Template Test - block length(m):    %d\n", counter++, tp.overlappingTemplateBlockLength);
 		if ( testVector[TEST_APEN] == 1 )
-			printf("    [%d] Approximate Entropy Test - block length(m):     %d\n", counter++, tp.approximateEntropyBlockLength);
+			mylog_printf("    [%d] Approximate Entropy Test - block length(m):     %d\n", counter++, tp.approximateEntropyBlockLength);
 		if ( testVector[TEST_SERIAL] == 1 )
-			printf("    [%d] Serial Test - block length(m):                  %d\n", counter++, tp.serialBlockLength);
+			mylog_printf("    [%d] Serial Test - block length(m):                  %d\n", counter++, tp.serialBlockLength);
 		if ( testVector[TEST_LINEARCOMPLEXITY] == 1 )
-			printf("    [%d] Linear Complexity Test - block length(M):       %d\n", counter++, tp.linearComplexitySequenceLength);
-		printf("\n");
-		printf("   Select Test (0 to continue): ");
-		scanf("%1d", &testid);
-		printf("\n");
+			mylog_printf("    [%d] Linear Complexity Test - block length(M):       %d\n", counter++, tp.linearComplexitySequenceLength);
+		mylog_printf("\n");
+		mylog_printf("   Select Test (0 to continue): ");
+		testid = 0;
+		mylog_printf("%1d", testid);
+		mylog_printf("\n");
 		
 		counter = 0;
 		if ( testVector[TEST_BLOCK_FREQUENCY] == 1 ) {
 			counter++;
 			if ( counter == testid ) {
-				printf("   Enter Block Frequency Test block length: ");
+				mylog_printf("   Enter Block Frequency Test block length: ");
 				scanf("%d", &tp.blockFrequencyBlockLength);
-				printf("\n");
+				mylog_printf("\n");
 				continue;
 			}
 		}
 		if ( testVector[TEST_NONPERIODIC] == 1 ) {
 			counter++;
 			if ( counter == testid ) {
-				printf("   Enter NonOverlapping Template Test block Length: ");
+				mylog_printf("   Enter NonOverlapping Template Test block Length: ");
 				scanf("%d", &tp.nonOverlappingTemplateBlockLength);
-				printf("\n");
+				mylog_printf("\n");
 				continue;
 			}
 		}
 		if ( testVector[TEST_OVERLAPPING] == 1 ) {
 			counter++;
 			if ( counter == testid ) {
-				printf("   Enter Overlapping Template Test block Length: ");
+				mylog_printf("   Enter Overlapping Template Test block Length: ");
 				scanf("%d", &tp.overlappingTemplateBlockLength);
-				printf("\n");
+				mylog_printf("\n");
 				continue;
 			}
 		}
 		if ( testVector[TEST_APEN] == 1 ) {
 			counter++;
 			if ( counter == testid ) {
-				printf("   Enter Approximate Entropy Test block Length: ");
+				mylog_printf("   Enter Approximate Entropy Test block Length: ");
 				scanf("%d", &tp.approximateEntropyBlockLength);
-				printf("\n");
+				mylog_printf("\n");
 				continue;
 			}
 		}
 		if ( testVector[TEST_SERIAL] == 1 ) {
 			counter++;
 			if ( counter == testid ) {
-				printf("   Enter Serial Test block Length: ");
+				mylog_printf("   Enter Serial Test block Length: ");
 				scanf("%d", &tp.serialBlockLength);
-				printf("\n");
+				mylog_printf("\n");
 				continue;
 			}
 		}
 		if ( testVector[TEST_LINEARCOMPLEXITY] == 1 ) {
 			counter++;
 			if ( counter == testid ) {
-				printf("   Enter Linear Complexity Test block Length: ");
+				mylog_printf("   Enter Linear Complexity Test block Length: ");
 				scanf("%d", &tp.linearComplexitySequenceLength);
-				printf("\n");
+				mylog_printf("\n");
 				continue;
 			}
 		}
@@ -231,15 +234,16 @@ fileBasedBitStreams(char *streamFile)
 	FILE	*fp;
 	int		mode;
 	
-	printf("   Input File Format:\n");
-	printf("    [0] ASCII - A sequence of ASCII 0's and 1's\n");
-	printf("    [1] Binary - Each byte in data file contains 8 bits of data\n\n");
-	printf("   Select input mode:  ");
-	scanf("%1d", &mode);
-	printf("\n");
+	mylog_printf("   Input File Format:\n");
+	mylog_printf("    [0] ASCII - A sequence of ASCII 0's and 1's\n");
+	mylog_printf("    [1] Binary - Each byte in data file contains 8 bits of data\n\n");
+	mylog_printf("   Select input mode:  ");
+	mode = 0;
+	mylog_printf("%1d", mode);
+	mylog_printf("\n");
 	if ( mode == 0 ) {
 		if ( (fp = fopen(streamFile, "r")) == NULL ) {
-			printf("ERROR IN FUNCTION fileBasedBitStreams:  file %s could not be opened.\n",  streamFile);
+			mylog_printf("ERROR IN FUNCTION fileBasedBitStreams:  file %s could not be opened.\n",  streamFile);
 			exit(-1);
 		}
 		readBinaryDigitsInASCIIFormat(fp, streamFile);
@@ -247,7 +251,7 @@ fileBasedBitStreams(char *streamFile)
 	}
 	else if ( mode == 1 ) {
 		if ( (fp = fopen(streamFile, "rb")) == NULL ) {
-			printf("ERROR IN FUNCTION fileBasedBitStreams:  file %s could not be opened.\n", streamFile);
+			mylog_printf("ERROR IN FUNCTION fileBasedBitStreams:  file %s could not be opened.\n", streamFile);
 			exit(-1);
 		}
 		readHexDigitsInBinaryFormat(fp);
@@ -262,18 +266,18 @@ readBinaryDigitsInASCIIFormat(FILE *fp, char *streamFile)
 	int		i, j, num_0s, num_1s, bitsRead, bit;
 	
 	if ( (epsilon = (BitSequence *) calloc(tp.n, sizeof(BitSequence))) == NULL ) {
-		printf("BITSTREAM DEFINITION:  Insufficient memory available.\n");
-		printf("Statistical Testing Aborted!\n");
+		mylog_printf("BITSTREAM DEFINITION:  Insufficient memory available.\n");
+		mylog_printf("Statistical Testing Aborted!\n");
 		return;
 	}
-	printf("     Statistical Testing In Progress.........\n\n");   
+	mylog_printf("     Statistical Testing In Progress.........\n\n");   
 	for ( i=0; i<tp.numOfBitStreams; i++ ) {
 		num_0s = 0;
 		num_1s = 0;
 		bitsRead = 0;
 		for ( j=0; j<tp.n; j++ ) {
 			if ( fscanf(fp, "%1d", &bit) == EOF ) {
-				printf("ERROR:  Insufficient data in file %s.  %d bits were read.\n", streamFile, bitsRead);
+				mylog_printf("ERROR:  Insufficient data in file %s.  %d bits were read.\n", streamFile, bitsRead);
 				fclose(fp);
 				free(epsilon);
 				return;
@@ -301,11 +305,11 @@ readHexDigitsInBinaryFormat(FILE *fp)
 	BYTE	buffer[4];
 	
 	if ( (epsilon = (BitSequence *) calloc(tp.n,sizeof(BitSequence))) == NULL ) {
-		printf("BITSTREAM DEFINITION:  Insufficient memory available.\n");
+		mylog_printf("BITSTREAM DEFINITION:  Insufficient memory available.\n");
 		return;
 	}
 
-	printf("     Statistical Testing In Progress.........\n\n");   
+	mylog_printf("     Statistical Testing In Progress.........\n\n");   
 	for ( i=0; i<tp.numOfBitStreams; i++ ) {
 		num_0s = 0;
 		num_1s = 0;
@@ -313,7 +317,7 @@ readHexDigitsInBinaryFormat(FILE *fp)
 		done = 0;
 		do {
 			if ( fread(buffer, sizeof(unsigned char), 4, fp) != 4 ) {
-				printf("READ ERROR:  Insufficient data in file.\n");
+				mylog_printf("READ ERROR:  Insufficient data in file.\n");
 				free(epsilon);
 				return;
 			}
@@ -365,19 +369,19 @@ convertToBits(BYTE *x, int xBitLength, int bitsNeeded, int *num_0s, int *num_1s,
 
 
 void
-openOutputStreams(int option)
+openOutputStreams(int option, int num)
 {
 	int		i, numOfBitStreams, numOfOpenFiles = 0;
 	char	freqfn[200], summaryfn[200], statsDir[200], resultsDir[200];
 	
 	sprintf(freqfn, "experiments/%s/freq.txt", generatorDir[option]);
 	if ( (freqfp = fopen(freqfn, "w")) == NULL ) {
-		printf("\t\tMAIN:  Could not open freq file: <%s>", freqfn);
+		mylog_printf("\t\tMAIN:  Could not open freq file: <%s>", freqfn);
 		exit(-1);
 	}
 	sprintf(summaryfn, "experiments/%s/finalAnalysisReport.txt", generatorDir[option]);
 	if ( (summary = fopen(summaryfn, "w")) == NULL ) {
-		printf("\t\tMAIN:  Could not open stats file: <%s>", summaryfn);
+		mylog_printf("\t\tMAIN:  Could not open stats file: <%s>", summaryfn);
 		exit(-1);
 	}
 	
@@ -386,27 +390,28 @@ openOutputStreams(int option)
 			sprintf(statsDir, "experiments/%s/%s/stats.txt", generatorDir[option], testNames[i]);
 			sprintf(resultsDir, "experiments/%s/%s/results.txt", generatorDir[option], testNames[i]);
 			if ( (stats[i] = fopen(statsDir, "w")) == NULL ) {	/* STATISTICS LOG */
-				printf("ERROR: LOG FILES COULD NOT BE OPENED.\n");
-				printf("       MAX # OF OPENED FILES HAS BEEN REACHED = %d\n", numOfOpenFiles);
-				printf("-OR-   THE OUTPUT DIRECTORY DOES NOT EXIST.\n");
+				mylog_printf("ERROR: LOG FILES COULD NOT BE OPENED.\n");
+				mylog_printf("       MAX # OF OPENED FILES HAS BEEN REACHED = %d\n", numOfOpenFiles);
+				mylog_printf("-OR-   THE OUTPUT DIRECTORY DOES NOT EXIST.\n");
 				exit(-1);
 			}
 			else
 				numOfOpenFiles++;
 			if ( (results[i] = fopen(resultsDir, "w")) == NULL ) {	/* P_VALUES LOG   */
-				 printf("ERROR: LOG FILES COULD NOT BE OPENED.\n");
-				 printf("       MAX # OF OPENED FILES HAS BEEN REACHED = %d\n", numOfOpenFiles);
-				 printf("-OR-   THE OUTPUT DIRECTORY DOES NOT EXIST.\n");
+				 mylog_printf("ERROR: LOG FILES COULD NOT BE OPENED.\n");
+				 mylog_printf("       MAX # OF OPENED FILES HAS BEEN REACHED = %d\n", numOfOpenFiles);
+				 mylog_printf("-OR-   THE OUTPUT DIRECTORY DOES NOT EXIST.\n");
 				 exit(-1);
 			}
 			else
 				numOfOpenFiles++;
 		}
 	}
-	printf("   How many bitstreams? ");
-	scanf("%d", &numOfBitStreams);
+	mylog_printf("   How many bitstreams? ");
+	numOfBitStreams = num;
+	mylog_printf("%d", numOfBitStreams);
 	tp.numOfBitStreams = numOfBitStreams;
-	printf("\n");
+	mylog_printf("\n");
 }
 
 
@@ -417,7 +422,7 @@ invokeTestSuite(int option, char *streamFile)
 	fprintf(freqfp, "\t\tFILE = %s\t\tALPHA = %6.4f\n", streamFile, ALPHA);
 	fprintf(freqfp, "________________________________________________________________________________\n\n");
 	if ( option != 0 )
-		printf("     Statistical Testing In Progress.........\n\n");
+		mylog_printf("     Statistical Testing In Progress.........\n\n");
 	switch( option ) {
 		case 0:
 			fileBasedBitStreams(streamFile);
@@ -453,10 +458,10 @@ invokeTestSuite(int option, char *streamFile)
 		/* INTRODUCE NEW PSEUDO RANDOM NUMBER GENERATORS HERE */
 			
 		default:
-			printf("Error in invokeTestSuite!\n");
+			mylog_printf("Error in invokeTestSuite!\n");
 			break;
 	}
-	printf("     Statistical Testing Complete!!!!!!!!!!!!\n\n");
+	mylog_printf("     Statistical Testing Complete!!!!!!!!!!!!\n\n");
 }
 
 

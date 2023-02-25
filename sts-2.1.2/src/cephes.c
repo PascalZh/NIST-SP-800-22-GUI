@@ -29,7 +29,7 @@ cephes_igamc(double a, double x)
 	ax = a * log(x) - x - cephes_lgam(a);
 
 	if ( ax < -MAXLOG ) {
-		printf("igamc: UNDERFLOW\n");
+		mylog_printf("igamc: UNDERFLOW\n");
 		return 0.0;
 	}
 	ax = exp(ax);
@@ -87,7 +87,7 @@ cephes_igam(double a, double x)
 	/* Compute  x**a * exp(-x) / gamma(a)  */
 	ax = a * log(x) - x - cephes_lgam(a);
 	if ( ax < -MAXLOG ) {
-		printf("igam: UNDERFLOW\n");
+		mylog_printf("igam: UNDERFLOW\n");
 		return 0.0;
 	}
 	ax = exp(ax);
@@ -206,7 +206,7 @@ lgsing:
 
 	if ( x > MAXLGM ) {
 loverf:
-		printf("lgam: OVERFLOW\n");
+		mylog_printf("lgam: OVERFLOW\n");
 
 		return sgngam * MAXNUM;
 	}
